@@ -40,25 +40,15 @@ export default function HeroSection() {
       ref={heroRef}
       className="relative w-full min-h-screen overflow-hidden bg-[#F3F3FF]"
     >
-      {/* Backgrounds */}
-      <div className="absolute inset-0">
-        <div
-          className="w-full h-full"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(243,243,255,0) 0%, #E7E8FF 50%, rgba(243,243,255,0) 100%)",
-          }}
-        />
-      </div>
+      {/* Background Grid Image from Figma */}
       <div
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(224,225,255,0.8) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(224,225,255,0.8) 1.5px, transparent 1.5px)",
-          backgroundSize: "40px 40px",
+          backgroundImage: "url('/herobg.png')",
         }}
       />
-      {/* Floating purple dots */}
+
+      {/* Floating purple dots - REDUCED SPEED & OPACITY */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {[...Array(40)].map((_, i) => (
           <div
@@ -66,16 +56,18 @@ export default function HeroSection() {
             className="absolute w-3 h-3 rounded-full"
             style={{
               backgroundColor: "#9333EA",
-              opacity: 0.6,
+              opacity: 0.25, // Reduced from 0.6
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
+              animation: `float ${8 + Math.random() * 8}s ease-in-out infinite`, // Increased from 3-7s to 8-16s
               animationDelay: `${Math.random() * 2}s`,
             }}
           />
         ))}
       </div>
+
       <Header />
+
       {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto max-w-[1800px] px-6 lg:px-[60px] pt-[140px] pb-0">
         {/* 3 COLUMN GRID (CENTER EMPTY) */}
@@ -91,18 +83,21 @@ export default function HeroSection() {
               <br />
               Human Connection.
             </h1>
+            {/* Desktop CTA Button - Changed text to "Request a Demo" */}
             <button
               ref={ctaRef}
               className="hidden lg:inline-flex py-3 px-8 sm:px-12 rounded-lg bg-[#0B0F3C] hover:bg-[#5B00D6] transition-all shadow-lg z-30 relative"
               style={{ opacity: 1 }}
             >
               <span className="text-white font-semibold text-base sm:text-lg">
-                Get Started
+                Request a Demo
               </span>
             </button>
           </div>
+
           {/* CENTER EMPTY COLUMN */}
           <div className="hidden lg:block" />
+
           {/* RIGHT TEXT */}
           <div className="max-w-md lg:justify-self-end relative z-20 order-2 lg:order-none mb-6 lg:mb-0">
             <p
@@ -114,7 +109,8 @@ export default function HeroSection() {
               interview, not the screening.
             </p>
           </div>
-          {/* BUTTON - Mobile only */}
+
+          {/* Mobile CTA Button - Same text as desktop */}
           <div className="lg:hidden order-3">
             <button
               className="inline-flex py-3 px-8 sm:px-12 rounded-lg bg-[#0B0F3C] hover:bg-[#5B00D6] transition-all shadow-lg z-30 relative"
@@ -126,15 +122,17 @@ export default function HeroSection() {
             </button>
           </div>
         </div>
-        {/* IMAGE — BROUGHT UP WITH NEGATIVE MARGIN */}
-        <div className="mt-8 lg:-mt-48 xl:-mt-56 relative z-10">
+
+        {/* IMAGE — INCREASED HEIGHT with h-auto for responsiveness */}
+        <div className="mt-8 lg:-mt-48 xl:-mt-60 relative z-10">
           <img
             src="/Whisk.png"
             alt="AI Recruitment visualization"
-            className="w-full block object-contain"
+            className="w-full h-auto block object-contain min-h-[100px] md:min-h-[500px] lg:min-h-[600px]"
           />
         </div>
       </div>
+
       <style jsx>{`
         @keyframes float {
           0%,

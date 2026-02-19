@@ -136,17 +136,30 @@ export default function APISection() {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
+  const formatTitle = (title: string) => {
+    const dotIndex = title.indexOf(".");
+    const number = title.slice(0, dotIndex + 1);
+    const rest = title.slice(dotIndex + 1);
+    return { number, rest };
+  };
+
   return (
     <div
       ref={sectionRef}
       id="api"
       className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-16 mt-16 md:mt-24 lg:mt-32"
+      style={{
+        backgroundImage: "url('/apigrid.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <div className="flex flex-col gap-12 md:gap-16 lg:gap-20">
         {/* Top Section - Header and Image */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 xl:gap-16">
-          {/* Left Content */}
-          <div className="api-header flex flex-col items-start gap-4 lg:gap-6 w-full lg:w-[48%]">
+          {/* Left Content - reduced width to create centre gap */}
+          <div className="api-header flex flex-col items-start gap-4 lg:gap-6 w-full lg:w-[38%]">
             <h2 className="text-[#1C1C1C] font-beVietnam text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-semibold leading-tight lg:leading-[1.2]">
               Recruiting Intelligence — Fully Observable
             </h2>
@@ -161,82 +174,99 @@ export default function APISection() {
               <span className="relative z-10">View API Docs</span>
             </a>
           </div>
-
-          {/* Right Image */}
-          <div className="api-image w-full lg:w-[48%] relative">
-            <div className="relative w-full aspect-[1.2/1] rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-white shadow-xl">
+          {/* Right Image - reduced width, no bg no shadow */}
+          <div className="api-image w-full lg:w-[38%] relative">
+            <div className="relative w-full aspect-[1.2/1]">
               <Image
                 src="/API Hiring.png"
                 alt="Hiring Workflow Status"
                 fill
-                className="object-contain p-4"
+                className="object-contain"
               />
             </div>
           </div>
         </div>
 
-        {/* Bottom Section - Code Boxes */}
+        {/* Bottom Section - Code Boxes with top padding for centering */}
         <div className="code-boxes grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 w-full">
-          {codeSnippets.map((snippet, index) => (
-            <div
-              key={index}
-              className="code-box flex flex-col rounded-xl bg-[#1C1C1C] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 self-start"
-              style={{ 
-                height: "240px",
-                opacity: 1,
-                transform: "translateY(0px)"
-              }}
-            >
-              {/* Title Bar */}
-              <div className="flex justify-between items-center px-5 py-3.5 bg-[#252525] border-b border-gray-700 flex-shrink-0">
-                <h3 className="text-[#9E56FF] font-schibstedGrotesk text-sm md:text-base font-semibold">
-                  {snippet.title}
-                </h3>
-                <button
-                  onClick={() => handleCopy(snippet.code, index)}
-                  className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-gray-700 rounded flex-shrink-0"
-                  aria-label="Copy code"
+          {codeSnippets.map((snippet, index) => {
+            const { number, rest } = formatTitle(snippet.title);
+            return (
+              <div
+                key={index}
+                className="code-box flex flex-col rounded-xl bg-[#1C1C1C] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                style={{
+                  height: "320px",
+                  opacity: 1,
+                  transform: "translateY(0px)"
+                }}
+              >
+                {/* Title Bar - plain white bg, centered title, copy button on right */}
+                <div className="flex items-center bg-white flex-shrink-0 px-5 py-3.5">
+                  <div className="flex-1 flex justify-center">
+                    <h3 className="font-schibstedGrotesk text-sm md:text-base font-semibold text-center">
+                      <span style={{ color: "#5B00D6" }}>{number}</span>
+                      <span className="text-[#1C1C1C]">{rest}</span>
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => handleCopy(snippet.code, index)}
+                    className="text-gray-400 hover:text-gray-700 transition-colors duration-200 p-1.5 hover:bg-gray-100 rounded flex-shrink-0"
+                    aria-label="Copy code"
+                  >
+                    {copiedIndex === index ? (
+                      <svg
+                        className="w-5 h-5 text-green-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2.5}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                
+                {/* Code Content - with top padding to create center spacing */}
+                <div
+                  className="flex-1 bg-[#1C1C1C] overflow-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800"
                 >
-                  {copiedIndex === index ? (
-                    <svg
-                      className="w-5 h-5 text-green-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                      />
-                    </svg>
-                  )}
-                </button>
+                  <pre
+                    className="text-gray-300 font-mono text-xs md:text-[13px] leading-relaxed"
+                    style={{
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                      textAlign: "left",
+                      padding: "80px 20px 20px 20px", // Top padding increased to 60px (approx 5 lines)
+                      margin: 0,
+                      fontFamily: "monospace",
+                    }}
+                  >
+                    {snippet.code}
+                  </pre>
+                </div>
               </div>
-
-              {/* Code Content - Scrollable */}
-              <div className="px-5 py-4 overflow-auto flex-1 bg-[#1C1C1C] scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-                <pre className="text-gray-300 font-mono text-xs md:text-[13px] leading-relaxed whitespace-pre min-w-max">
-                  {snippet.code}
-                </pre>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

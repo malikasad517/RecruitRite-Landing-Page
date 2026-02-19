@@ -48,10 +48,9 @@ export default function UseCases() {
             <h2 className="text-[#1C1C1C] font-beVietnam text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-semibold leading-tight text-center">
               Built for Every
             </h2>
-            <div className="w-12 h-12 md:w-16 md:h-16 lg:w-[76px] lg:h-[76px] relative flex-shrink-0">
+            {/* Icon - small on mobile, normal on desktop */}
+            <div className="w-7 h-7 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[76px] lg:h-[76px] relative flex-shrink-0">
               <svg
-                width="38"
-                height="38"
                 viewBox="0 0 38 38"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,8 +59,6 @@ export default function UseCases() {
                 <path d="M37.9367 0V38.0003H0L37.9367 0Z" fill="#9E56FF" />
               </svg>
               <svg
-                width="38"
-                height="38"
                 viewBox="0 0 38 38"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -84,14 +81,12 @@ export default function UseCases() {
           {useCases.map((useCase, index) => (
             <div
               key={index}
-              className={`flex flex-col items-start rounded-[10px] border border-[#BBB] overflow-hidden flex-1 max-w-[440px] xl:max-w-[520px] transition-all duration-300 cursor-pointer ${
-                activeCase === index
-                  ? "opacity-100 scale-[1.02] shadow-lg"
-                  : "opacity-70 hover:opacity-90"
+              className={`flex flex-col items-start rounded-[10px] border border-[#BBB] overflow-hidden flex-1 max-w-[440px] xl:max-w-[520px] transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg ${
+                activeCase === index ? "shadow-lg" : ""
               }`}
               onClick={() => setActiveCase(index)}
             >
-              <div className="flex justify-center items-center bg-white w-full h-[300px] xl:h-[360px] overflow-hidden relative">
+              <div className="flex justify-center items-center bg-white w-full h-[200px] xl:h-[240px] overflow-hidden relative">
                 <Image
                   src={useCase.image}
                   alt={useCase.title}
@@ -114,8 +109,8 @@ export default function UseCases() {
         {/* Mobile/Tablet Carousel - One Card at a Time */}
         <div className="lg:hidden w-full">
           <div className="flex justify-center items-center w-full">
-            <div className="flex flex-col items-start rounded-[10px] border border-[#BBB] overflow-hidden w-full max-w-[520px] shadow-lg">
-              <div className="flex justify-center items-center bg-white w-full h-[280px] sm:h-[340px] md:h-[400px] overflow-hidden relative">
+            <div className="flex flex-col items-start rounded-[10px] border border-[#BBB] overflow-hidden w-full max-w-[520px] shadow-md">
+              <div className="flex justify-center items-center bg-white w-full h-[200px] sm:h-[240px] md:h-[280px] overflow-hidden relative">
                 <Image
                   src={useCases[activeCase].image}
                   alt={useCases[activeCase].title}

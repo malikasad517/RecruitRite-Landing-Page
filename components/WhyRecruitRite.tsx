@@ -48,14 +48,7 @@ export default function WhyRecruitRite() {
             Why RecruitRite?
           </h2>
           <p className="text-[#666] font-schibstedGrotesk text-base md:text-lg leading-relaxed lg:leading-[30px]">
-            Lorem ipsum dolor sit amet consectetur. Imperdiet congue eu aliquam
-            egestas mi ac a arcu. Mauris sit elementum ornare enim volutpat
-            tristique. Nam imperdiet id ultrices eget blandit ut ornare turpis
-            eget. Nec ullamcorper egestas euismod eget in dui tincidunt id
-            egestas. Proin ornare vulputate feugiat amet at et amet cursus
-            sollicitudin. Sem aliquam ultrices molestie id vitae. Risus sit
-            posuere nisl et ac in tempor et accumsan. Aliquet eros volutpat eget
-            dignissim velit. Eu sapien quam in nunc. Nam blandit.
+            RecruitRite is an AI-powered hiring engine that instantly matches and ranks your candidate pool — whether you're filling one critical role or scaling to hundreds. From resume upload to enterprise-level screening, we process thousands of applications, deliver fully vetted, ready-to-hire talent, and free your team to focus on final decisions and growth.
           </p>
         </div>
 
@@ -67,12 +60,12 @@ export default function WhyRecruitRite() {
                 key={index}
                 className="stat-box flex flex-col items-start gap-2 md:gap-3"
               >
-                <div className="bg-[#9E56FF] w-full max-w-[280px] sm:max-w-full h-1" />
+                <div className="bg-[#9E56FF] w-full max-w-[280px] sm:max-w-full h-[0.125rem]" />
                 <div className="flex flex-col items-start">
                   <p className="text-[#5B00D6] font-schibstedGrotesk text-5xl sm:text-6xl md:text-[64px] lg:text-[70px] font-medium leading-none">
                     {stat.value}
                   </p>
-                  <p className="text-[#333] font-schibstedGrotesk text-lg sm:text-xl md:text-2xl leading-tight mt-1 md:mt-2">
+                  <p className="text-[#333] font-schibstedGrotesk text-[1.2rem] leading-tight mt-1 md:mt-2">
                     {stat.label}
                   </p>
                 </div>

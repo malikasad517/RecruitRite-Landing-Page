@@ -101,10 +101,16 @@ export default function Pricing() {
       badgeColor: "bg-[#F3E8FF]",
       badgeTextColor: "text-[#7C3AED]",
       title: "Pay Only for Results",
-      subtitle: "Use credits when you need them. No contracts. No recurring fees.",
+      subtitle: (
+        <>
+          Use credits when you need them.
+          <br />
+          No contracts. No recurring fees.
+        </>
+      ),
       features: [
         "Credits used per AI interview, screening, or match",
-        "Fully customized candidate interviews",
+        "Fully automated candidate interviews",
         "Technical + soft-skill reports included",
         "Credits never expire",
         "Scale up or down anytime",
@@ -157,25 +163,23 @@ export default function Pricing() {
               ref={(el) => {
                 cardsRef.current[index] = el;
               }}
-              className="flex flex-col rounded-[12px] border border-[#9E56FF] shadow-lg bg-white p-6 md:p-7 lg:p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 relative group overflow-visible"
-              style={{ opacity: 1 }}
+              className="flex flex-col rounded-[12px] border border-[#9E56FF] shadow-lg p-6 md:p-7 lg:p-8 relative overflow-hidden"
+              style={{
+                opacity: 1,
+                background: "linear-gradient(180deg, rgba(236, 222, 255, 0.3) 0%, rgba(243, 243, 255, 0.3) 100%)",
+              }}
             >
-              {/* Popular Badge Glow Effect */}
-              {plan.popular && (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#9E56FF]/5 to-transparent rounded-[12px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              )}
-
               {/* Centered Header Content */}
               <div className="flex flex-col items-center text-center mb-6 relative z-10">
                 {/* Badge */}
                 <div
-                  className={`inline-flex items-center justify-center ${plan.badgeColor} ${plan.badgeTextColor} px-4 py-2 rounded-full text-sm font-medium font-schibstedGrotesk mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-md`}
+                  className={`inline-flex items-center justify-center ${plan.badgeColor} ${plan.badgeTextColor} px-4 py-2 rounded-full text-sm font-medium font-schibstedGrotesk mb-4`}
                 >
                   {plan.badge}
                 </div>
 
                 {/* Title */}
-                <h3 className="text-[#1C1C1C] font-schibstedGrotesk text-2xl md:text-3xl lg:text-[34px] font-semibold leading-tight mb-2 transition-colors duration-300 group-hover:text-[#5B00D6]">
+                <h3 className="text-[#1C1C1C] font-schibstedGrotesk text-2xl md:text-3xl lg:text-[34px] font-semibold leading-tight mb-2">
                   {plan.title}
                 </h3>
 
@@ -186,20 +190,18 @@ export default function Pricing() {
               </div>
 
               {/* Divider */}
-              <div className="w-full h-px bg-gradient-to-r from-transparent via-[#E5E5E5] to-transparent mb-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#9E56FF] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-              </div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-[#E5E5E5] to-transparent mb-6" />
 
               {/* Features List */}
               <div className="flex flex-col gap-3 mb-6 flex-grow relative z-10">
                 {plan.features.map((feature, featureIndex) => (
                   <div
                     key={featureIndex}
-                    className="feature-item flex items-start gap-3 transition-all duration-300 hover:translate-x-2"
+                    className="feature-item flex items-start gap-3"
                     style={{ opacity: 1 }}
                   >
                     <svg
-                      className="w-5 h-5 text-[#7C3AED] flex-shrink-0 mt-0.5 transition-all duration-300 group-hover:text-[#9E56FF] group-hover:scale-125"
+                      className="w-5 h-5 text-[#7C3AED] flex-shrink-0 mt-0.5"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -226,10 +228,10 @@ export default function Pricing() {
                 <span className="absolute inset-0 w-full h-full">
                   <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] translate-x-[-200%] group-hover/btn:translate-x-[400%] transition-transform duration-1000 ease-in-out" />
                 </span>
-                
+
                 {/* Button Text */}
                 <span className="relative z-10">{plan.buttonText}</span>
-                
+
                 {/* Hover Background Glow */}
                 <span className="absolute inset-0 bg-gradient-to-r from-[#5B00D6]/0 via-[#5B00D6]/10 to-[#5B00D6]/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
               </button>

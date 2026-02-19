@@ -13,7 +13,7 @@ export default function HowItWorks() {
   };
 
   return (
-    <section id="how-it-works" className="bg-[#F6F7FF] py-8 sm:py-12 md:py-16 lg:py-20">
+    <section id="how-it-works" className="bg-[#F3F3FF] py-8 sm:py-12 md:py-16 lg:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Heading */}
         <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
@@ -29,7 +29,7 @@ export default function HowItWorks() {
             </span>
             RecruitRite Works
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-[#64748B] max-w-2xl mx-auto">
+          <p className="mt-2 text-sm sm:text-base text-[#64748B] max-w-2xl mx-auto font-normal">
             From job description to live interview — see the whole journey,
             then try it yourself.
           </p>
@@ -38,12 +38,12 @@ export default function HowItWorks() {
         {/* OUTER WRAPPER - Contains blue box + external elements */}
         <div className="relative">
           
-          {/* Main Resume - OUTSIDE blue box */}
+          {/* Main Resume - OUTSIDE blue box - SMOOTHER ANIMATION */}
           <div 
-            className={`absolute transition-all duration-[1500ms] ease-in-out ${
+            className={`absolute transition-all ease-out ${
               animationStarted 
-                ? 'left-[33%] sm:left-[31%] md:left-[33%] lg:left-[31%] top-2 sm:top-10 md:top-6 rotate-0 scale-75 sm:scale-90 md:scale-100 z-[8]' 
-                : 'left-0 sm:left-4 md:left-8 lg:left-4 top-8 sm:top-10 md:top-12 rotate-[8deg] scale-75 sm:scale-90 md:scale-100 z-20'
+                ? 'duration-[2000ms] left-[33%] sm:left-[31%] md:left-[33%] lg:left-[28%] top-2 sm:top-10 md:top-6 rotate-0 scale-75 sm:scale-90 md:scale-100 z-[8]' 
+                : 'duration-700 left-[-4] sm:left-4 md:left-8 lg:left-4 top-8 sm:top-10 md:top-12 rotate-[8deg] scale-75 sm:scale-90 md:scale-100 z-20'
             }`}
             style={{ width: 'clamp(100px, 12vw, 160px)' }}
           >
@@ -57,10 +57,10 @@ export default function HowItWorks() {
             />
           </div>
 
-          {/* Click Button - OUTSIDE blue box */}
+          {/* Click Button - REDUCED WIDTH ON MOBILE */}
           <button
             onClick={handleStartAnimation}
-            className={`absolute left-0 sm:left-4 md:left-8 lg:left-12 top-32 sm:top-36 md:top-40 bg-[#0F172A] text-white text-[10px] leading-tight sm:text-sm px-2 py-1.5 sm:px-3.5 sm:py-2 rounded-lg shadow-lg sm:whitespace-nowrap z-30 hover:bg-gray-800 transition-colors cursor-pointer max-w-[130px] sm:max-w-none ${
+            className={`absolute left-0 sm:left-4 md:left-8 lg:left-12 top-40 sm:top-36 md:top-40 bg-[#0F172A] text-white text-[10px] sm:text-sm px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-lg shadow-lg sm:whitespace-nowrap z-30 hover:bg-gray-800 transition-colors cursor-pointer w-[115px] sm:w-auto ${
               animationStarted ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             disabled={animationStarted}
@@ -68,16 +68,16 @@ export default function HowItWorks() {
             Click here to See magic Happen ✨
           </button>
 
-          {/* Blue container */}
-          <div className="relative bg-[#C9DAFF] rounded-xl sm:rounded-2xl h-[360px] sm:h-[420px] md:h-[440px] lg:h-[460px] overflow-visible mx-6 sm:mx-20 md:mx-24 lg:mx-28">
+          {/* Blue container - INCREASED HEIGHT ON MOBILE ONLY */}
+          <div className="relative bg-[#C9DAFF] rounded-xl sm:rounded-2xl h-[550px] sm:h-[480px] md:h-[520px] lg:h-[540px] overflow-visible mx-6 sm:mx-20 md:mx-24 lg:mx-28">
             
-            {/* folder2.png - Right side floating image */}
+            {/* folder2.png - Right side floating image - SMOOTHER ANIMATION */}
             <div className="absolute top-2 sm:top-4 right-2 sm:right-8 md:right-12 lg:right-16 z-10">
               <div 
-                className={`relative transition-all duration-[1500ms] ease-in-out ${
+                className={`relative transition-all ease-out ${
                   animationStarted 
-                    ? 'delay-[1500ms] translate-x-[-120px] sm:translate-x-[-120px] md:translate-x-[-140px] lg:translate-x-[-180px] translate-y-[200px] sm:translate-y-[90px] md:translate-y-[100px] lg:translate-y-[40px] scale-[1.3] sm:scale-[2.2] md:scale-[2.6] lg:scale-[1.8] opacity-100' 
-                    : 'translate-x-0 translate-y-0 scale-100 opacity-0'
+                    ? 'duration-[2000ms] delay-[1500ms] translate-x-[-120px] sm:translate-x-[-120px] md:translate-x-[-140px] lg:translate-x-[-130px] translate-y-[300px] sm:translate-y-[90px] md:translate-y-[100px] lg:translate-y-[40px] scale-[1.8] sm:scale-[2.2] md:scale-[2.6] lg:scale-[1.8] opacity-100' 
+                    : 'duration-700 translate-x-0 translate-y-0 scale-100 opacity-0'
                 }`}
                 style={{ width: 'clamp(50px, 7vw, 120px)' }}
               >
@@ -91,20 +91,20 @@ export default function HowItWorks() {
               </div>
             </div>
 
-            {/* Upload cards container */}
-            <div className="absolute inset-0 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-6 md:gap-8 lg:gap-10 px-4 pt-16 sm:pt-0">
+            {/* Upload cards container - ADDED PADDING BETWEEN FOLDERS ON MOBILE */}
+            <div className="absolute inset-0 flex flex-col sm:flex-row items-center justify-center gap-12 sm:gap-8 md:gap-10 lg:gap-12 px-4 pt-16 sm:pt-0">
               
-              {/* Job Description Card */}
+              {/* Job Description Card - INCREASED SIZE & PADDING */}
               <div className="flex flex-col items-center">
-                <div className="relative w-[130px] h-[102px] sm:w-[160px] sm:h-[130px] md:w-[180px] md:h-[150px] lg:w-[200px] lg:h-[170px]">
+                <div className="relative w-[200px] h-[180px] sm:w-[190px] sm:h-[160px] md:w-[220px] md:h-[180px] lg:w-[300px] lg:h-[280px]">
                   <Image
                     src="/WHite bg folder.svg"
                     alt="Upload Folder"
                     fill
                     className="object-contain z-10"
                   />
-                  <div className="relative z-[15] h-full flex flex-col items-center justify-center pt-2 sm:pt-3">
-                    <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 relative">
+                  <div className="relative z-[15] h-full flex flex-col items-center justify-center pt-3 sm:pt-4 px-4">
+                    <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-11 lg:h-11 relative">
                       <Image
                         src="/Frame.png"
                         alt="Upload"
@@ -112,12 +112,12 @@ export default function HowItWorks() {
                         className="object-contain"
                       />
                     </div>
-                    <p className="mt-1 sm:mt-1.5 text-[9px] sm:text-xs font-medium text-[#0F172A] text-center">
+                    <p className="mt-2 sm:mt-2.5 text-sm sm:text-base md:text-base font-medium text-[#0F172A] text-center">
                       Drag and Drop<br />your files
                     </p>
-                    <div className="mt-1.5 sm:mt-2 flex items-start gap-1.5 sm:gap-3 md:gap-4">
-                      <div className="flex flex-col items-center gap-0.5">
-                        <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 relative">
+                    <div className="mt-3 sm:mt-4 flex items-start gap-3 sm:gap-4 md:gap-5">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 relative">
                           <Image
                             src="/Chrome extension.png"
                             alt="Chrome"
@@ -125,12 +125,12 @@ export default function HowItWorks() {
                             className="object-contain"
                           />
                         </div>
-                        <span className="text-[6px] sm:text-[8px] text-[#64748B] text-center leading-tight">
+                        <span className="text-[10px] sm:text-xs text-[#64748B] text-center leading-tight">
                           Add Chrome<br/>Extension
                         </span>
                       </div>
-                      <div className="flex flex-col items-center gap-0.5">
-                        <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 relative">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 relative">
                           <Image
                             src="/QR code.png"
                             alt="QR"
@@ -138,29 +138,29 @@ export default function HowItWorks() {
                             className="object-contain"
                           />
                         </div>
-                        <span className="text-[6px] sm:text-[8px] text-[#64748B] text-center leading-tight">
+                        <span className="text-[10px] sm:text-xs text-[#64748B] text-center leading-tight">
                           Scan your<br/>document
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <p className="mt-2 text-xs sm:text-base font-bold text-[#0F172A] text-center">
+                <p className="mt-3 text-sm sm:text-base md:text-lg font-bold text-[#0F172A] text-center">
                   Add Job Description
                 </p>
               </div>
 
-              {/* Candidate Pool Card */}
+              {/* Candidate Pool Card - INCREASED SIZE & PADDING */}
               <div className="flex flex-col items-center">
-                <div className="relative w-[130px] h-[102px] sm:w-[160px] sm:h-[130px] md:w-[180px] md:h-[150px] lg:w-[200px] lg:h-[170px]">
+                <div className="relative w-[200px] h-[180px] sm:w-[190px] sm:h-[160px] md:w-[220px] md:h-[180px] lg:w-[300px] lg:h-[280px]">
                   <Image
                     src="/WHite bg folder.svg"
                     alt="Upload Folder"
                     fill
                     className="object-contain z-10"
                   />
-                  <div className="relative z-[15] h-full flex flex-col items-center justify-center pt-2 sm:pt-3">
-                    <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 relative">
+                  <div className="relative z-[15] h-full flex flex-col items-center justify-center pt-3 sm:pt-4 px-4">
+                    <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-11 lg:h-11 relative">
                       <Image
                         src="/Frame.png"
                         alt="Upload"
@@ -168,12 +168,12 @@ export default function HowItWorks() {
                         className="object-contain"
                       />
                     </div>
-                    <p className="mt-1 sm:mt-1.5 text-[9px] sm:text-xs font-medium text-[#0F172A] text-center">
+                    <p className="mt-2 sm:mt-2.5 text-sm sm:text-base md:text-base font-medium text-[#0F172A] text-center">
                       Drag and Drop<br />your files
                     </p>
-                    <div className="mt-1.5 sm:mt-2 flex items-start gap-1.5 sm:gap-3 md:gap-4">
-                      <div className="flex flex-col items-center gap-0.5">
-                        <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 relative">
+                    <div className="mt-3 sm:mt-4 flex items-start gap-3 sm:gap-4 md:gap-5">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 relative">
                           <Image
                             src="/Chrome extension.png"
                             alt="Chrome"
@@ -181,12 +181,12 @@ export default function HowItWorks() {
                             className="object-contain"
                           />
                         </div>
-                        <span className="text-[6px] sm:text-[8px] text-[#64748B] text-center leading-tight">
+                        <span className="text-[10px] sm:text-xs text-[#64748B] text-center leading-tight">
                           Add Chrome<br/>Extension
                         </span>
                       </div>
-                      <div className="flex flex-col items-center gap-0.5">
-                        <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 relative">
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 relative">
                           <Image
                             src="/QR code.png"
                             alt="QR"
@@ -194,22 +194,24 @@ export default function HowItWorks() {
                             className="object-contain"
                           />
                         </div>
-                        <span className="text-[6px] sm:text-[8px] text-[#64748B] text-center leading-tight">
+                        <span className="text-[10px] sm:text-xs text-[#64748B] text-center leading-tight">
                           Scan your<br/>document
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <p className="mt-2 text-xs sm:text-base font-bold text-[#0F172A] text-center">
+                <p className="mt-3 text-sm sm:text-base md:text-lg font-bold text-[#0F172A] text-center">
                   Add Candidate Pool
                 </p>
               </div>
             </div>
 
-            {/* Robot */}
-            <div className="absolute right-[-15px] sm:right-[-15px] md:right-[-10px] lg:right-[-5px] bottom-8 sm:bottom-10 md:bottom-12 lg:bottom-16 z-20">
-              <div className="w-[100px] h-[125px] sm:w-[130px] sm:h-[163px] md:w-[140px] md:h-[175px] lg:w-[150px] lg:h-[188px] relative">
+            {/* Robot - WITH MOVING ANIMATION (only change) */}
+            <div className="absolute right-[-40px] sm:right-[-15px] md:right-[-10px] lg:right-[-5px] bottom-8 sm:bottom-12 md:bottom-14 lg:bottom-16 z-20">
+              <div className={`w-[100px] h-[125px] sm:w-[130px] sm:h-[163px] md:w-[140px] md:h-[175px] lg:w-[150px] lg:h-[188px] relative ${
+                animationStarted ? 'animate-robot-move' : ''
+              }`}>
                 <Image
                   src="/AdobeExpressRobot_mascot_reviews_holographic_resumes11BackgroundRemoved2.png"
                   alt="Robot"
@@ -220,9 +222,9 @@ export default function HowItWorks() {
               </div>
             </div>
 
-            {/* Speech bubble */}
+            {/* Speech bubble - SMOOTHER ANIMATION - FIXED DESKTOP POSITION */}
             <div 
-              className={`absolute right-12 sm:right-36 md:right-40 lg:right-32 top-28 sm:top-28 md:top-32 lg:top-32 bg-[#0F172A] text-white text-[9px] sm:text-[11px] md:text-[12px] px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 rounded-[20px] sm:rounded-[24px] md:rounded-[28px] shadow-lg z-20 transition-all duration-500 ${
+              className={`absolute right-0 sm:right-36 md:right-40 lg:right-16 bottom-48 sm:bottom-32 md:bottom-36 lg:bottom-72 bg-[#0F172A] text-white text-xs sm:text-sm md:text-sm px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3.5 rounded-[20px] sm:rounded-[24px] md:rounded-[28px] shadow-lg z-20 transition-all duration-700 ease-out ${
                 animationStarted ? 'delay-[3500ms] opacity-100 scale-100' : 'opacity-0 scale-0'
               }`}
             >
@@ -242,6 +244,30 @@ export default function HowItWorks() {
           
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes robotMove {
+          0% {
+            transform: translateY(0) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-8px) rotate(-2deg);
+          }
+          50% {
+            transform: translateY(0) rotate(0deg);
+          }
+          75% {
+            transform: translateY(8px) rotate(2deg);
+          }
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+        }
+        
+        .animate-robot-move {
+          animation: robotMove 3s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }
