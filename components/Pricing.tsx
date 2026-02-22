@@ -87,7 +87,6 @@ export default function Pricing() {
       subtitle: "No credit card required.",
       features: [
         "100 free credits",
-        "Real AI interviews",
         "Upload job descriptions & resumes",
         "Resume + JD matching",
         "Live interview preview",
@@ -110,7 +109,6 @@ export default function Pricing() {
       ),
       features: [
         "Credits used per AI interview, screening, or match",
-        "Fully automated candidate interviews",
         "Technical + soft-skill reports included",
         "Credits never expire",
         "Scale up or down anytime",
@@ -128,7 +126,6 @@ export default function Pricing() {
       features: [
         "Bulk credit discounts",
         "Bonus credits automatically added",
-        "Thousands of interviews processed in parallel",
         "HRIS, ATS & API integration",
         "Priority support & onboarding",
       ],

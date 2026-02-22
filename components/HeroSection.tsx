@@ -2,13 +2,12 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Header from "./Header";
-
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
-
+  const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
@@ -35,6 +34,28 @@ export default function HeroSection() {
     return () => ctx.revert();
   }, []);
 
+  // Auto-resume video when scrolled back into view
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  // SVG icons for muted/unmuted states
+  const mutedSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+  const soundSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+
   return (
     <section
       ref={heroRef}
@@ -47,7 +68,6 @@ export default function HeroSection() {
           backgroundImage: "url('/herobg.png')",
         }}
       />
-
       {/* Floating purple dots - REDUCED SPEED & OPACITY */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {[...Array(40)].map((_, i) => (
@@ -56,18 +76,16 @@ export default function HeroSection() {
             className="absolute w-3 h-3 rounded-full"
             style={{
               backgroundColor: "#9333EA",
-              opacity: 0.25, // Reduced from 0.6
+              opacity: 0.25,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `float ${8 + Math.random() * 8}s ease-in-out infinite`, // Increased from 3-7s to 8-16s
+              animation: `float ${8 + Math.random() * 8}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 2}s`,
             }}
           />
         ))}
       </div>
-
       <Header />
-
       {/* HERO CONTENT */}
       <div className="relative z-10 mx-auto max-w-[1800px] px-6 lg:px-[60px] pt-[140px] pb-0">
         {/* 3 COLUMN GRID (CENTER EMPTY) */}
@@ -83,7 +101,7 @@ export default function HeroSection() {
               <br />
               Human Connection.
             </h1>
-            {/* Desktop CTA Button - Changed text to "Request a Demo" */}
+            {/* Desktop CTA Button */}
             <button
               ref={ctaRef}
               className="hidden lg:inline-flex py-3 px-8 sm:px-12 rounded-lg bg-[#0B0F3C] hover:bg-[#5B00D6] transition-all shadow-lg z-30 relative"
@@ -94,10 +112,8 @@ export default function HeroSection() {
               </span>
             </button>
           </div>
-
           {/* CENTER EMPTY COLUMN */}
           <div className="hidden lg:block" />
-
           {/* RIGHT TEXT */}
           <div className="max-w-md lg:justify-self-end relative z-20 order-2 lg:order-none mb-6 lg:mb-0">
             <p
@@ -109,8 +125,7 @@ export default function HeroSection() {
               interview, not the screening.
             </p>
           </div>
-
-          {/* Mobile CTA Button - Same text as desktop */}
+          {/* Mobile CTA Button */}
           <div className="lg:hidden order-3">
             <button
               className="inline-flex py-3 px-8 sm:px-12 rounded-lg bg-[#0B0F3C] hover:bg-[#5B00D6] transition-all shadow-lg z-30 relative"
@@ -122,17 +137,36 @@ export default function HeroSection() {
             </button>
           </div>
         </div>
-
-        {/* IMAGE — INCREASED HEIGHT with h-auto for responsiveness */}
+        {/* VIDEO — replaces Whisk.png */}
         <div className="mt-8 lg:-mt-48 xl:-mt-60 relative z-10">
-          <img
-            src="/Whisk.png"
-            alt="AI Recruitment visualization"
+          <video
+            ref={videoRef}
+            src="/Herovideo.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-auto block object-contain min-h-[100px] md:min-h-[500px] lg:min-h-[600px]"
           />
+          {/* Sound toggle button — bottom-right, responsive size, professional SVG icon */}
+          <button
+            onClick={() => {
+              const video = videoRef.current;
+              if (!video) return;
+              video.muted = !video.muted;
+              const icon = document.getElementById("sound-icon");
+              const label = document.getElementById("sound-label");
+              if (icon) icon.innerHTML = video.muted ? mutedSVG : soundSVG;
+              if (label) label.textContent = video.muted ? "Unmute" : "Mute";
+            }}
+            id="sound-btn"
+            className="absolute bottom-[-64] right-4 sm:bottom-6 sm:right-6 flex items-center gap-2 sm:gap-3 bg-[#0B0F3C] hover:bg-[#5B00D6] text-white font-semibold text-xs sm:text-base px-3 py-2 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl shadow-2xl border border-white/20 transition-all duration-300 hover:scale-105 z-20"
+          >
+            <span id="sound-icon" className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" dangerouslySetInnerHTML={{ __html: mutedSVG }} />
+            <span id="sound-label">Unmute</span>
+          </button>
         </div>
       </div>
-
       <style jsx>{`
         @keyframes float {
           0%,
