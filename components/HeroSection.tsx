@@ -141,7 +141,7 @@ export default function HeroSection() {
         <div className="mt-8 lg:-mt-48 xl:-mt-60 relative z-10">
           <video
             ref={videoRef}
-            src="/Herovideo.mp4"
+            src="/Herosection2.mp4"
             autoPlay
             loop
             muted

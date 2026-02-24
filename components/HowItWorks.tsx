@@ -50,6 +50,7 @@ export default function HowItWorks() {
       doc: HTMLDivElement,
       folder: HTMLDivElement,
       landed: HTMLDivElement,
+      finalScale: number,
       position: string | number = ">"
     ) => {
       const start = doc.getBoundingClientRect();
@@ -72,9 +73,10 @@ export default function HowItWorks() {
         .set(doc, { autoAlpha: 0 })
         .to(landed, { autoAlpha: 1, duration: 0.1 })
         .fromTo(landed,
-          { scale: 1.0 },
-          { scale: 1.3, duration: 0.25, yoyo: true, repeat: 1, ease: "back.out(2)" }
-        );
+          { scale: 0.8 },
+          { scale: finalScale + 0.15, duration: 0.3, ease: "back.out(2)" }
+        )
+        .to(landed, { scale: finalScale, duration: 0.2, ease: "power2.out" });
     };
     const handleClick = () => {
       if (hasClicked.current) return;
@@ -82,10 +84,26 @@ export default function HowItWorks() {
       if (pulseRef.current) pulseRef.current.kill();
       gsap.to(btn, { autoAlpha: 0, scale: 0.8, duration: 0.2 });
       gsap.set(secondDoc, { autoAlpha: 1 });
+      const isDesktop = window.innerWidth >= 1024;
+      // ─────────────────────────────────────────────────
+      // HOW TO ADJUST FINAL IMAGE SIZE AFTER ANIMATION:
+      //
+      // IMAGE 1 (resume / job description):
+      //   • Mobile final size  → change the first number  e.g. 1.0
+      //   • Desktop final size → change the second number e.g. 1.4
+      //
+      // IMAGE 2 (candidate pool resumes):
+      //   • Mobile final size  → change the first number  e.g. 1.5
+      //   • Desktop final size → change the second number e.g. 2.8
+      //
+      // Scale of 1.0 = original image size, 2.0 = double, 1.5 = 50% bigger
+      // ─────────────────────────────────────────────────
+      const scale1 = isDesktop ? 1.1 : 1.0;
+      const scale2 = isDesktop ? 1.5 : 1.0;
       const tl = gsap.timeline();
       tl.to(bubbleText, { text: "Well Done...", duration: 0.5, ease: "none" });
-      flyInto(tl, resumeDoc, folder1, landed1, "<");
-      flyInto(tl, secondDoc, folder2, landed2, "-=1.0");
+      flyInto(tl, resumeDoc, folder1, landed1, scale1, "<");
+      flyInto(tl, secondDoc, folder2, landed2, scale2, "-=1.0");
       tl.to(bubbleText, { text: "Now See Your Matched Candidates", duration: 1, ease: "none" });
     };
     btn.addEventListener("click", handleClick);
@@ -97,39 +115,59 @@ export default function HowItWorks() {
   }, []);
   return (
     <section id="how-it-works" className="bg-[#F3F3FF] py-8 sm:py-12 md:py-16 lg:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        {/* Heading */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-16">
+        {/* ── Heading — matched to global site font sizes ── */}
         <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#0F172A] flex items-center justify-center gap-2">
+          <h2 className="text-[#1C1C1C] font-beVietnam text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-semibold leading-tight flex items-center justify-center gap-3 flex-wrap">
             How
-            <span className="inline-block w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 relative flex-shrink-0">
-              <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-1/2 h-1/2 absolute left-0 top-0">
+            <span className="inline-block w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 lg:w-[70px] lg:h-[70px] xl:w-[76px] xl:h-[76px] relative flex-shrink-0">
+              <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-1/2 h-1/2 absolute left-0 top-0">
                 <path d="M37.9367 0V38.0003H0L37.9367 0Z" fill="#9E56FF" />
               </svg>
-              <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-1/2 h-1/2 absolute right-0 bottom-0">
+              <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-1/2 h-1/2 absolute right-0 bottom-0">
                 <path d="M0 38.0004V0H37.9317L0 38.0004Z" fill="#5B00D6" />
               </svg>
             </span>
             RecruitRite Works
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-[#64748B] max-w-2xl mx-auto font-normal">
+          <p className="mt-3 text-base md:text-lg text-[#666] font-schibstedGrotesk max-w-2xl mx-auto font-normal leading-relaxed">
             From job description to live interview — see the whole journey, then try it yourself.
           </p>
         </div>
-        {/* OUTER WRAPPER */}
+        {/* ── OUTER WRAPPER ── */}
         <div className="relative">
-          {/*
-            ── resum.png — flying doc ──
-            MOBILE adjustments (only affects <640px):
-              width: "75px"       ← change to make smaller/larger on mobile
-              left:  "-16px"      ← more negative = further left, less negative = further right
-            DESKTOP: controlled by the clamp() values in the style prop (unchanged)
-          */}
           <style>{`
             @media (max-width: 639px) {
               .resume-doc { width: 75px !important; left: -16px !important; }
             }
+            /*
+              ── LANDED IMAGE 2 SIZE CONTROL ──
+              This is the ONLY place you need to change to adjust the
+              second image (candidate pool resumes) size per breakpoint.
+              HOW TO ADJUST:
+              • Mobile (<640px)  → change width in the first block  e.g. 160px
+              • Tablet (640-1023px) → change width in sm block      e.g. 220px
+              • Desktop (1024px+)→ change width in lg block         e.g. 420px
+              • Large desktop   → change width in xl block          e.g. 500px
+              The GSAP animation scale (1.25) multiplies ON TOP of these sizes.
+              So desktop 380px × 1.25 = ~475px final rendered size.
+            */
+            .landed2-img { width: 160px; }                        /* mobile   */
+            @media (min-width: 640px)  { .landed2-img { width: 200px; } }  /* sm tablet */
+            @media (min-width: 768px)  { .landed2-img { width: 260px; } }  /* md tablet */
+            @media (min-width: 1024px) { .landed2-img { width: 380px; } }  /* lg desktop */
+            @media (min-width: 1280px) { .landed2-img { width: 440px; } }  /* xl desktop */
+            /*
+              ── LANDED IMAGE 1 SIZE CONTROL ──
+              Same pattern — adjust per breakpoint here.
+            */
+            .landed1-img { width: 80px; }
+            @media (min-width: 640px)  { .landed1-img { width: 100px; } }
+            @media (min-width: 768px)  { .landed1-img { width: 120px; } }
+            @media (min-width: 1024px) { .landed1-img { width: 160px; } }  /* lg desktop */
+            @media (min-width: 1280px) { .landed1-img { width: 180px; } }
           `}</style>
+          {/* resum.png — flying doc */}
           <div
             ref={resumeDocRef}
             className="resume-doc absolute z-20"
@@ -142,7 +180,6 @@ export default function HowItWorks() {
           >
             <Image src="/resum.png" alt="Resume" width={180} height={226} className="w-full h-auto" priority />
           </div>
-
           {/* secondfolderres.png — flying doc */}
           <div
             ref={secondDocRef}
@@ -172,7 +209,7 @@ export default function HowItWorks() {
                   ref={folder1Ref}
                   className="relative w-[200px] h-[180px] sm:w-[190px] sm:h-[160px] md:w-[220px] md:h-[180px] lg:w-[300px] lg:h-[280px]"
                 >
-                  {/* LANDED IMAGE 1 — z-[5], behind folder */}
+                  {/* LANDED IMAGE 1 — size controlled by .landed1-img in <style> above */}
                   <div
                     ref={landed1Ref}
                     className="absolute left-1/2 pointer-events-none"
@@ -187,20 +224,14 @@ export default function HowItWorks() {
                     <Image
                       src="/resum.png"
                       alt="Resume landed"
-                      width={110}
-                      height={138}
-                      className="drop-shadow-xl"
-                      style={{ width: "clamp(80px, 9vw, 130px)", height: "auto" }}
+                      width={180}
+                      height={226}
+                      className="landed1-img drop-shadow-xl"
+                      style={{ height: "auto" }}
                     />
                   </div>
                   {/* Folder SVG — z-[10] */}
-                  <Image
-                    src="/WHite bg folder.svg"
-                    alt="Upload Folder"
-                    fill
-                    className="object-contain"
-                    style={{ zIndex: 10 }}
-                  />
+                  <Image src="/WHite bg folder.svg" alt="Upload Folder" fill className="object-contain" style={{ zIndex: 10 }} />
                   {/* Folder content — z-[15] */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center pt-3 sm:pt-4 px-4" style={{ zIndex: 15 }}>
                     <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-11 lg:h-11 relative">
@@ -225,7 +256,8 @@ export default function HowItWorks() {
                     </div>
                   </div>
                 </div>
-                <p className="mt-3 text-sm sm:text-base md:text-lg font-bold text-[#0F172A] text-center">
+                {/* ── ONLY CHANGE: font-schibstedGrotesk + lg:text-[34px] added ── */}
+                <p className="mt-3 text-sm sm:text-base md:text-lg lg:text-[30px] font-bold text-[#0F172A] text-center font-schibstedGrotesk">
                   Add Job Description
                 </p>
               </div>
@@ -235,7 +267,7 @@ export default function HowItWorks() {
                   ref={folder2Ref}
                   className="relative w-[200px] h-[180px] sm:w-[190px] sm:h-[160px] md:w-[220px] md:h-[180px] lg:w-[300px] lg:h-[280px]"
                 >
-                  {/* LANDED IMAGE 2 — z-[5], behind folder */}
+                  {/* LANDED IMAGE 2 — size controlled by .landed2-img in <style> above */}
                   <div
                     ref={landed2Ref}
                     className="absolute left-1/2 pointer-events-none"
@@ -252,17 +284,12 @@ export default function HowItWorks() {
                       alt="Folder 2 landed"
                       width={300}
                       height={262}
-                      className="drop-shadow-xl"
+                      className="landed2-img drop-shadow-xl"
+                      style={{ height: "auto" }}
                     />
                   </div>
                   {/* Folder SVG — z-[10] */}
-                  <Image
-                    src="/WHite bg folder.svg"
-                    alt="Upload Folder"
-                    fill
-                    className="object-contain"
-                    style={{ zIndex: 10 }}
-                  />
+                  <Image src="/WHite bg folder.svg" alt="Upload Folder" fill className="object-contain" style={{ zIndex: 10 }} />
                   {/* Folder content — z-[15] */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center pt-3 sm:pt-4 px-4" style={{ zIndex: 15 }}>
                     <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-11 lg:h-11 relative">
@@ -287,7 +314,8 @@ export default function HowItWorks() {
                     </div>
                   </div>
                 </div>
-                <p className="mt-3 text-sm sm:text-base md:text-lg font-bold text-[#0F172A] text-center">
+                {/* ── ONLY CHANGE: font-schibstedGrotesk + lg:text-[34px] added ── */}
+                <p className="mt-3 text-sm sm:text-base md:text-lg lg:text-[30px] font-bold text-[#0F172A] text-center font-schibstedGrotesk">
                   Add Candidate Pool
                 </p>
               </div>

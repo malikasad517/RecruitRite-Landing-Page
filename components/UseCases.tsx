@@ -47,7 +47,9 @@ export default function UseCases() {
     },
   ];
 
-  const total = useCases.length;
+  const total = useCases.length;         // 6 cards
+  const CARDS_PER_SET = 3;               // show 3 at a time
+  const SETS = total / CARDS_PER_SET;    // 2 sets → 2 dots
   const CLONE_COUNT = 3;
 
   // Cloned array for infinite loop: last 3 + all 6 + first 3
@@ -57,12 +59,14 @@ export default function UseCases() {
     ...useCases.slice(0, CLONE_COUNT),
   ];
 
+  // `current` now advances by 3 (one full set at a time)
   const trackIndex = current + CLONE_COUNT;
+  const translateX = -(trackIndex * (100 / 3));
 
   const startAutoPlay = useCallback(() => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     autoPlayRef.current = setInterval(() => {
-      setCurrent((prev) => prev + 1);
+      setCurrent((prev) => prev + CARDS_PER_SET);
     }, 3000);
   }, []);
 
@@ -73,21 +77,21 @@ export default function UseCases() {
     };
   }, [startAutoPlay]);
 
-  // Seamless infinite loop: after transition ends, silently jump
+  // Seamless infinite loop: jump silently when reaching cloned boundaries
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
 
     const handleTransitionEnd = () => {
       if (isJumping.current) return;
-
       if (current >= total) {
         isJumping.current = true;
         track.style.transition = "none";
         setCurrent(current - total);
         requestAnimationFrame(() =>
           requestAnimationFrame(() => {
-            track.style.transition = "transform 0.55s cubic-bezier(0.4,0,0.2,1)";
+            track.style.transition =
+              "transform 0.55s cubic-bezier(0.4,0,0.2,1)";
             isJumping.current = false;
           })
         );
@@ -97,7 +101,8 @@ export default function UseCases() {
         setCurrent(current + total);
         requestAnimationFrame(() =>
           requestAnimationFrame(() => {
-            track.style.transition = "transform 0.55s cubic-bezier(0.4,0,0.2,1)";
+            track.style.transition =
+              "transform 0.55s cubic-bezier(0.4,0,0.2,1)";
             isJumping.current = false;
           })
         );
@@ -108,21 +113,23 @@ export default function UseCases() {
     return () => track.removeEventListener("transitionend", handleTransitionEnd);
   }, [current, total]);
 
-  const handleDot = (index: number) => {
+  // Dot index: 0 = first set of 3, 1 = second set of 3
+  const activeSet = (Math.round(((current % total) + total) % total / CARDS_PER_SET)) % SETS;
+
+  const handleDot = (setIndex: number) => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    setCurrent(index);
+    setCurrent(setIndex * CARDS_PER_SET);
     startAutoPlay();
   };
 
-  // Mobile dot also handles prev/next via swipe-like dot clicks
+  // Mobile still shows one card at a time — keep individual dot per card
+  const activeDot = ((current % total) + total) % total;
+
   const handleMobileDot = (index: number) => {
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     setCurrent(index);
     startAutoPlay();
   };
-
-  const activeDot = ((current % total) + total) % total;
-  const translateX = -(trackIndex * (100 / 3));
 
   return (
     <div
@@ -130,7 +137,6 @@ export default function UseCases() {
       className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-16 mt-16 md:mt-24 lg:mt-32"
     >
       <div className="flex flex-col items-center gap-8 md:gap-10 lg:gap-12">
-
         {/* ── Header ── */}
         <div className="flex flex-col justify-center items-center gap-3 md:gap-4">
           <div className="flex justify-center items-center gap-2 md:gap-3 flex-wrap">
@@ -138,10 +144,20 @@ export default function UseCases() {
               Built for Every
             </h2>
             <div className="w-7 h-7 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[76px] lg:h-[76px] relative flex-shrink-0">
-              <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-1/2 h-1/2 absolute left-0 top-0">
+              <svg
+                viewBox="0 0 38 38"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-1/2 h-1/2 absolute left-0 top-0"
+              >
                 <path d="M37.9367 0V38.0003H0L37.9367 0Z" fill="#9E56FF" />
               </svg>
-              <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-1/2 h-1/2 absolute right-0 bottom-0">
+              <svg
+                viewBox="0 0 38 38"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-1/2 h-1/2 absolute right-0 bottom-0"
+              >
                 <path d="M0 38.0004V0H37.9317L0 38.0004Z" fill="#5B00D6" />
               </svg>
             </div>
@@ -150,11 +166,12 @@ export default function UseCases() {
             </h2>
           </div>
           <p className="text-[#666] font-schibstedGrotesk text-base md:text-lg leading-relaxed text-center max-w-3xl px-4">
-            RecruitRite adapts to how you hire — whether you're filling one role or scaling globally.
+            RecruitRite adapts to how you hire — whether you're filling one role
+            or scaling globally.
           </p>
         </div>
 
-        {/* ── DESKTOP CAROUSEL (lg+) — no arrows, dots only ── */}
+        {/* ── DESKTOP CAROUSEL (lg+) — 3 cards visible, 2 dot sets ── */}
         <div className="hidden lg:block w-full">
           {/* Overflow window */}
           <div className="overflow-hidden w-full">
@@ -173,10 +190,13 @@ export default function UseCases() {
                   className="flex-shrink-0 px-2 xl:px-3"
                   style={{ width: "33.3333%" }}
                 >
-                  {/* Card — fixed total height so all 6 are identical */}
+                  {/* Card — no white background, transparent text area */}
                   <div className="flex flex-col rounded-[10px] border border-[#BBB] overflow-hidden w-full shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
-                    {/* Image area — fixed height */}
-                    <div className="relative w-full flex-shrink-0" style={{ height: "240px" }}>
+                    {/* Image area */}
+                    <div
+                      className="relative w-full flex-shrink-0"
+                      style={{ height: "240px" }}
+                    >
                       <Image
                         src={useCase.image}
                         alt={useCase.title}
@@ -185,9 +205,9 @@ export default function UseCases() {
                         sizes="(max-width: 1440px) 33vw"
                       />
                     </div>
-                    {/* Text area — fixed min-height so all cards align */}
+                    {/* Text area — bg-transparent instead of bg-white */}
                     <div
-                      className="flex flex-col gap-3 xl:gap-4 p-5 xl:p-6 w-full bg-white"
+                      className="flex flex-col gap-3 xl:gap-4 p-5 xl:p-6 w-full"
                       style={{ minHeight: "180px" }}
                     >
                       <h3 className="text-[#1C1C1C] font-schibstedGrotesk text-2xl xl:text-[28px] font-medium leading-tight">
@@ -203,29 +223,31 @@ export default function UseCases() {
             </div>
           </div>
 
-          {/* Desktop Dots */}
+          {/* Desktop Dots — only 2 dots (one per set of 3) */}
           <div className="flex justify-center items-center gap-2 w-full mt-6">
-            {useCases.map((_, index) => (
+            {Array.from({ length: SETS }).map((_, setIndex) => (
               <button
-                key={index}
-                onClick={() => handleDot(index)}
+                key={setIndex}
+                onClick={() => handleDot(setIndex)}
                 className={`rounded-full transition-all duration-300 ${
-                  activeDot === index
+                  activeSet === setIndex
                     ? "bg-[#0A0B3A] w-7 h-2.5"
                     : "bg-gray-300 w-2.5 h-2.5 hover:bg-gray-400"
                 }`}
-                aria-label={`Go to card ${index + 1}`}
+                aria-label={`Go to set ${setIndex + 1}`}
               />
             ))}
           </div>
         </div>
 
-        {/* ── MOBILE / TABLET CAROUSEL (< lg) ── */}
+        {/* ── MOBILE / TABLET CAROUSEL (< lg) — 1 card, 6 dots ── */}
         <div className="lg:hidden w-full">
           <div className="flex justify-center w-full">
-            {/* Card — same fixed heights on mobile too */}
             <div className="flex flex-col rounded-[10px] border border-[#BBB] overflow-hidden w-full max-w-[520px] shadow-md">
-              <div className="relative w-full flex-shrink-0" style={{ height: "220px" }}>
+              <div
+                className="relative w-full flex-shrink-0"
+                style={{ height: "220px" }}
+              >
                 <Image
                   src={useCases[activeDot].image}
                   alt={useCases[activeDot].title}
@@ -234,8 +256,9 @@ export default function UseCases() {
                   sizes="520px"
                 />
               </div>
+              {/* Text area — bg-transparent instead of bg-white */}
               <div
-                className="flex flex-col gap-3 p-5 w-full bg-white"
+                className="flex flex-col gap-3 p-5 w-full"
                 style={{ minHeight: "160px" }}
               >
                 <h3 className="text-[#1C1C1C] font-schibstedGrotesk text-2xl sm:text-[28px] font-medium leading-tight">
@@ -264,7 +287,6 @@ export default function UseCases() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

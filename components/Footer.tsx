@@ -17,33 +17,10 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-white border-t border-gray-200 relative overflow-hidden min-h-[80px]">
-
-      {/* ✅ Watermark "Recruit Rite" behind all content */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
-      >
-        <span
-          style={{
-            fontSize: 'clamp(4rem, 14vw, 10rem)',
-            fontWeight: 900,
-            color: '#0A0B3A',
-            opacity: 0.08,
-            whiteSpace: 'nowrap',
-            letterSpacing: '0.15em',
-            userSelect: 'none',
-            lineHeight: 1,
-          }}
-        >
-          Recruit Rite
-        </span>
-      </div>
-
-      {/* Footer content — above watermark */}
+      {/* Footer content */}
       <div className="w-full px-6 lg:px-12 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-6 max-w-[1400px] mx-auto">
-
-          {/* ✅ Left Side - Nav Links — font-normal (400) instead of font-bold */}
+          {/* Left Side - Nav Links */}
           <nav className="flex items-center gap-4 sm:gap-6 md:gap-8 flex-wrap justify-center md:justify-start flex-shrink-0">
             {[
               { label: 'How it Works?', href: '#how-it-works' },
@@ -56,7 +33,7 @@ const Footer = () => {
                 key={href}
                 href={href}
                 onClick={(e) => handleSmoothScroll(e, href)}
-                style={{ fontWeight: 400 }} // ✅ Regular 400 — not bold
+                style={{ fontWeight: 400 }}
                 className="text-xs sm:text-sm text-[#1C1C1C] hover:text-[#0A0B3A] transition-all duration-300 whitespace-nowrap relative group"
               >
                 {label}
@@ -70,10 +47,9 @@ const Footer = () => {
 
           {/* Right Side - Copyright + Socials */}
           <div className="flex flex-col md:flex-row items-center gap-6 flex-shrink-0">
-
-            {/* ✅ Copyright — font weight Regular (400) */}
+            {/* Copyright */}
             <div
-              style={{ fontWeight: 400 }} // ✅ Regular 400 — not bold
+              style={{ fontWeight: 400 }}
               className="text-xs sm:text-sm text-[#1C1C1C] whitespace-nowrap order-2 md:order-1"
             >
               @All rights reserved to RecruitRite
@@ -81,7 +57,6 @@ const Footer = () => {
 
             {/* Social Icons */}
             <div className="flex items-center gap-6 order-1 md:order-2 flex-shrink-0">
-
               <Link
                 href="https://linkedin.com"
                 target="_blank"
@@ -92,7 +67,6 @@ const Footer = () => {
                 <Image src="/Linkedinsvg.png" alt="LinkedIn" width={24} height={24}
                   className="w-6 h-6" style={{ width: '24px', height: '24px' }} />
               </Link>
-
               <Link
                 href="https://instagram.com"
                 target="_blank"
@@ -103,7 +77,6 @@ const Footer = () => {
                 <Image src="/igsvg.png" alt="Instagram" width={24} height={24}
                   className="w-6 h-6" style={{ width: '24px', height: '24px' }} />
               </Link>
-
               <Link
                 href="https://wa.me/1234567890"
                 target="_blank"
@@ -114,7 +87,6 @@ const Footer = () => {
                 <Image src="/wpsvg.png" alt="WhatsApp" width={24} height={24}
                   className="w-6 h-6" style={{ width: '24px', height: '24px' }} />
               </Link>
-
               <Link
                 href="https://facebook.com"
                 target="_blank"
@@ -125,10 +97,8 @@ const Footer = () => {
                 <Image src="/fbsvg.png" alt="Facebook" width={24} height={24}
                   className="w-6 h-6" style={{ width: '24px', height: '24px' }} />
               </Link>
-
             </div>
           </div>
-
         </div>
       </div>
     </footer>
