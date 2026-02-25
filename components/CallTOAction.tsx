@@ -2,14 +2,11 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
 export default function CTASection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -28,10 +25,8 @@ export default function CTASection() {
         }
       );
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
-
   return (
     <div
       ref={sectionRef}
@@ -40,21 +35,17 @@ export default function CTASection() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-16">
         {/* Wrapper — relative so watermark is positioned inside it */}
         <div className="relative flex flex-col items-center justify-center">
-
           {/* ── Watermark ──
                HOW TO ADJUST POSITION:
                • Move DOWN → increase the `top` value  e.g. top-[60%], top-[70%]
                • Move UP   → decrease the `top` value  e.g. top-[30%], top-[20%]
                • Current   → top-[55%] sits just below the button
-
                HOW TO ADJUST SIZE:
                • Bigger → increase text-[Xpx]  e.g. xl:text-[280px]
                • Smaller → decrease text-[Xpx]  e.g. xl:text-[180px]
-
                HOW TO ADJUST SVG ICON SIZE:
                • Bigger → increase the w/h values on the icon div
                • Smaller → decrease the w/h values on the icon div
-
                HOW TO ADJUST SVG VERTICAL POSITION (superscript height):
                • Move down (less superscript) → increase mt-[Xpx] values
                • Move up (more superscript)   → decrease mt-[Xpx] values
@@ -72,7 +63,6 @@ export default function CTASection() {
             >
               RecruitRite
             </span>
-
             {/* SVG diamond — superscript position, hugging top-right of last letter like the logo
                 HOW TO ADJUST SVG SIZE:
                 • Mobile (default) → change w-[Xpx] h-[Xpx]        (no prefix)
@@ -80,7 +70,6 @@ export default function CTASection() {
                 • Medium screens   → change md:w-[Xpx] md:h-[Xpx]
                 • Desktop (lg)     → change lg:w-[Xpx] lg:h-[Xpx]
                 • Large desktop    → change xl:w-[Xpx] xl:h-[Xpx]
-
                 HOW TO ADJUST SVG VERTICAL POSITION:
                 • Move UP (more superscript) → decrease mt values  e.g. mt-[4px]
                 • Move DOWN (less superscript) → increase mt values e.g. mt-[30px]
@@ -112,29 +101,27 @@ export default function CTASection() {
               </svg>
             </div>
           </div>
-
           {/* ── Foreground CTA content ── */}
           <div className="cta-content relative z-10 flex flex-col items-center justify-center gap-6 md:gap-8 text-center">
             {/* Heading */}
             <h2 className="text-[#1C1C1C] font-beVietnam text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-semibold leading-tight max-w-4xl">
               Discover how RecruitRite transforms hiring outcomes
             </h2>
-
             {/* Description */}
             <p className="text-[#666] font-schibstedGrotesk text-base md:text-lg leading-relaxed max-w-3xl px-4">
               RecruitRite helps teams hire faster, reduce bias, and make confident decisions — powered by AI interviews, matching, and real-time candidate insights, without disrupting your existing systems.
             </p>
-
             {/* CTA Button */}
-            <button className="bg-[#0A0B3A] text-white px-10 md:px-12 py-3.5 md:py-4 rounded-lg font-schibstedGrotesk text-base md:text-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-xl relative overflow-hidden group mt-2">
-              {/* Shine Effect */}
-              <span className="absolute inset-0 w-full h-full">
-                <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] translate-x-[-200%] group-hover:translate-x-[400%] transition-transform duration-1000 ease-in-out" />
-              </span>
-              <span className="relative z-10">Start your free trial</span>
-            </button>
+            <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+              <button className="bg-[#0A0B3A] text-white px-10 md:px-12 py-3.5 md:py-4 rounded-lg font-schibstedGrotesk text-base md:text-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-xl relative overflow-hidden group mt-2">
+                {/* Shine Effect */}
+                <span className="absolute inset-0 w-full h-full">
+                  <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] translate-x-[-200%] group-hover:translate-x-[400%] transition-transform duration-1000 ease-in-out" />
+                </span>
+                <span className="relative z-10">Find My Top Candidates</span>
+              </button>
+            </a>
           </div>
-
         </div>
       </div>
     </div>

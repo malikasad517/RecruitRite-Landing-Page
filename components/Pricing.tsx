@@ -2,15 +2,12 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
 export default function Pricing() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Animate section header
@@ -25,7 +22,6 @@ export default function Pricing() {
         duration: 1,
         ease: "power3.out",
       });
-
       // Animate pricing cards
       cardsRef.current.forEach((card, index) => {
         if (card) {
@@ -48,7 +44,6 @@ export default function Pricing() {
               ease: "power3.out",
             }
           );
-
           // Animate features inside each card
           const features = card.querySelectorAll(".feature-item");
           gsap.fromTo(
@@ -74,10 +69,8 @@ export default function Pricing() {
         }
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
-
   const pricingPlans = [
     {
       badge: "Free Trial",
@@ -91,7 +84,7 @@ export default function Pricing() {
         "Resume + JD matching",
         "Live interview preview",
       ],
-      buttonText: "Start Free",
+      buttonText: "Unlock 100 Free Credits",
       buttonStyle: "bg-[#0A0B3A] text-white hover:bg-[#1a1b4a]",
       popular: false,
     },
@@ -113,7 +106,7 @@ export default function Pricing() {
         "Credits never expire",
         "Scale up or down anytime",
       ],
-      buttonText: "Buy Credits",
+      buttonText: "Increase Hiring Capacity",
       buttonStyle: "bg-[#0A0B3A] text-white hover:bg-[#1a1b4a]",
       popular: true,
     },
@@ -129,12 +122,11 @@ export default function Pricing() {
         "HRIS, ATS & API integration",
         "Priority support & onboarding",
       ],
-      buttonText: "Buy Credits",
+      buttonText: "Request Enterprise Plan",
       buttonStyle: "bg-[#0A0B3A] text-white hover:bg-[#1a1b4a]",
       popular: false,
     },
   ];
-
   return (
     <div
       ref={sectionRef}
@@ -151,7 +143,6 @@ export default function Pricing() {
             No subscriptions. No lock-ins. Just AI that works when you need it.
           </p>
         </div>
-
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-5 xl:gap-6 w-full">
           {pricingPlans.map((plan, index) => (
@@ -174,21 +165,17 @@ export default function Pricing() {
                 >
                   {plan.badge}
                 </div>
-
                 {/* Title */}
                 <h3 className="text-[#1C1C1C] font-schibstedGrotesk text-2xl md:text-3xl lg:text-[34px] font-semibold leading-tight mb-2">
                   {plan.title}
                 </h3>
-
                 {/* Subtitle */}
                 <p className="text-[#666] font-schibstedGrotesk text-sm md:text-base leading-relaxed min-h-[48px]">
                   {plan.subtitle}
                 </p>
               </div>
-
               {/* Divider */}
               <div className="w-full h-px bg-gradient-to-r from-transparent via-[#E5E5E5] to-transparent mb-6" />
-
               {/* Features List */}
               <div className="flex flex-col gap-3 mb-6 flex-grow relative z-10">
                 {plan.features.map((feature, featureIndex) => (
@@ -216,22 +203,21 @@ export default function Pricing() {
                   </div>
                 ))}
               </div>
-
               {/* CTA Button with Shine Effect */}
-              <button
-                className={`relative w-full ${plan.buttonStyle} py-3.5 md:py-4 rounded-lg font-schibstedGrotesk text-base md:text-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-xl overflow-hidden group/btn z-10`}
-              >
-                {/* Shine Effect */}
-                <span className="absolute inset-0 w-full h-full">
-                  <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] translate-x-[-200%] group-hover/btn:translate-x-[400%] transition-transform duration-1000 ease-in-out" />
-                </span>
-
-                {/* Button Text */}
-                <span className="relative z-10">{plan.buttonText}</span>
-
-                {/* Hover Background Glow */}
-                <span className="absolute inset-0 bg-gradient-to-r from-[#5B00D6]/0 via-[#5B00D6]/10 to-[#5B00D6]/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
-              </button>
+              <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+                <button
+                  className={`relative w-full ${plan.buttonStyle} py-3.5 md:py-4 rounded-lg font-schibstedGrotesk text-base md:text-lg font-medium transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-xl overflow-hidden group/btn z-10`}
+                >
+                  {/* Shine Effect */}
+                  <span className="absolute inset-0 w-full h-full">
+                    <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] translate-x-[-200%] group-hover/btn:translate-x-[400%] transition-transform duration-1000 ease-in-out" />
+                  </span>
+                  {/* Button Text */}
+                  <span className="relative z-10">{plan.buttonText}</span>
+                  {/* Hover Background Glow */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#5B00D6]/0 via-[#5B00D6]/10 to-[#5B00D6]/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
+                </button>
+              </a>
             </div>
           ))}
         </div>

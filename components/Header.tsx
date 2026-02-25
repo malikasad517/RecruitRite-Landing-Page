@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
-
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
-
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     
@@ -59,7 +57,6 @@ export default function Header() {
     // Close mobile menu if open
     setMobileMenuOpen(false);
   };
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-[#0A0B3A]/10">
       <div className="max-w-[1920px] mx-auto px-6 lg:px-12 xl:px-16 2xl:px-20">
@@ -141,12 +138,16 @@ export default function Header() {
             </a>
           </nav>
           <div className="hidden lg:flex items-center gap-4">
-            <button className="px-8 py-2 rounded-lg border border-[#0A0B3A] text-[#0A0B3A] text-base hover:bg-[#0A0B3A] hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#0A0B3A]/20">
-              Login
-            </button>
-            <button className="px-8 py-2 rounded-lg bg-[#0A0B3A] text-white text-base hover:bg-gradient-to-r hover:from-[#5B00D6] hover:to-[#9E56FF] transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#5B00D6]/30">
-              Sign Up
-            </button>
+            <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+              <button className="px-8 py-2 rounded-lg border border-[#0A0B3A] text-[#0A0B3A] text-base hover:bg-[#0A0B3A] hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#0A0B3A]/20">
+                Login
+              </button>
+            </a>
+            <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+              <button className="px-8 py-2 rounded-lg bg-[#0A0B3A] text-white text-base hover:bg-gradient-to-r hover:from-[#5B00D6] hover:to-[#9E56FF] transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#5B00D6]/30">
+                Sign Up
+              </button>
+            </a>
           </div>
           <button className="lg:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 group" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
             <span className={`w-6 h-0.5 bg-[#0A0B3A] transition-all duration-300 group-hover:bg-[#5B00D6] ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
@@ -197,17 +198,20 @@ export default function Header() {
               <span className="absolute left-3 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-[#5B00D6] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
             </a>
             <div className="flex flex-col gap-3 mt-4">
-              <button className="w-full px-8 py-3 rounded-lg border border-[#0A0B3A] text-[#0A0B3A] text-lg hover:bg-[#0A0B3A] hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#0A0B3A]/20">
-                Login
-              </button>
-              <button className="w-full px-8 py-3 rounded-lg bg-[#0A0B3A] text-white text-lg hover:bg-gradient-to-r hover:from-[#5B00D6] hover:to-[#9E56FF] transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#5B00D6]/30">
-                Sign Up
-              </button>
+              <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+                <button className="w-full px-8 py-3 rounded-lg border border-[#0A0B3A] text-[#0A0B3A] text-lg hover:bg-[#0A0B3A] hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#0A0B3A]/20">
+                  Login
+                </button>
+              </a>
+              <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+                <button className="w-full px-8 py-3 rounded-lg bg-[#0A0B3A] text-white text-lg hover:bg-gradient-to-r hover:from-[#5B00D6] hover:to-[#9E56FF] transition-all duration-300 transform hover:scale-105 active:scale-95 hover:shadow-lg hover:shadow-[#5B00D6]/30">
+                  Sign Up
+                </button>
+              </a>
             </div>
           </nav>
         </div>
       </div>
-
       {/* Global CSS for ripple animation */}
       <style jsx global>{`
         @keyframes rippleExpand {

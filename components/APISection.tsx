@@ -171,7 +171,7 @@ export default function APISection() {
               <span className="absolute inset-0 w-full h-full">
                 <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-25deg] translate-x-[-200%] group-hover:translate-x-[400%] transition-transform duration-1000 ease-in-out" />
               </span>
-              <span className="relative z-10">View API Docs</span>
+              <span className="relative z-10">Generate My API Key</span>
             </a>
           </div>
           {/* Right Image - reduced width, no bg no shadow */}

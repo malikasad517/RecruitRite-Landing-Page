@@ -102,15 +102,17 @@ export default function HeroSection() {
               Human Connection.
             </h1>
             {/* Desktop CTA Button */}
-            <button
-              ref={ctaRef}
-              className="hidden lg:inline-flex py-3 px-8 sm:px-12 rounded-lg bg-[#0B0F3C] hover:bg-[#5B00D6] transition-all shadow-lg z-30 relative"
-              style={{ opacity: 1 }}
-            >
-              <span className="text-white font-semibold text-base sm:text-lg">
-                Request a Demo
-              </span>
-            </button>
+            <a href="https://plus.recruitrite.ai/signup" target="_blank" rel="noopener noreferrer">
+              <button
+                ref={ctaRef}
+                className="hidden lg:inline-flex py-3 px-8 sm:px-12 rounded-lg bg-[#0B0F3C] hover:bg-[#5B00D6] transition-all shadow-lg z-30 relative"
+                style={{ opacity: 1 }}
+              >
+                <span className="text-white font-semibold text-base sm:text-lg">
+                  Identify Top Talent Now
+                </span>
+              </button>
+            </a>
           </div>
           {/* CENTER EMPTY COLUMN */}
           <div className="hidden lg:block" />
